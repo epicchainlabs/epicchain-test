@@ -1,0 +1,61 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "copy nbgv version",
+            "command": "nbgv",
+            "type": "shell",
+            "args": [
+                "get-version",
+                "-v",
+                "NuGetPackageVersion",
+                "|",
+                "clip"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "package",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "pack",
+                "-o",
+                "artifacts"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test-package",
+            "dependsOn": [
+                "copy nbgv version",
+                "package"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

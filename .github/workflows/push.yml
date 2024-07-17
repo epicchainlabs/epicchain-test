@@ -1,0 +1,39 @@
+name: On Push
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+    paths-ignore:
+      - 'readme.md'
+      - 'CHANGELOG.md'
+      - 'docs/**'
+
+env:
+  AZURE_ARTIFACTS_FEED_URL: https://pkgs.dev.azure.com/ngdenterprise/Build/_packaging/public/nuget/v3/index.json
+  DOTNET_VERSION: '6.0.x'
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+  pack:
+    uses: ./.github/workflows/pack.yml
+  publish:
+    needs: [test, pack]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        source-url: ${{ env.AZURE_ARTIFACTS_FEED_URL }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PAT }} 
+    - name: Download Packages
+      uses: actions/download-artifact@v3
+      with:
+        name: packages
+        path: ./out
+    - name: Publish Packages to Azure Artifacts
+      run: dotnet nuget push --api-key AzureArtifacts out/*.nupkg
