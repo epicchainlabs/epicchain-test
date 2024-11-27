@@ -193,7 +193,7 @@ then setting MSBuild properties and/or items.
     <EpicChainContractName>$(AssemblyName)</EpicChainContractName>
     <EpicChainExpressBatchFile>..\express.batch</EpicChainExpressBatchFile>
     <Nullable>enable</Nullable>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -211,7 +211,7 @@ then setting MSBuild properties and/or items.
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -235,8 +235,8 @@ then setting MSBuild properties and/or items.
 
 ``` csharp 
 // CSharp 
-[EpicChainTestHarness.Contract("EpicChain.Example.Nep17Token")]
-interface Nep17Token
+[EpicChainTestHarness.Contract("EpicChain.Example.Xep17Token")]
+interface Xep17Token
 {
     System.Numerics.BigInteger balanceOf(EpicChain.UInt160 account);
     System.Numerics.BigInteger decimals();

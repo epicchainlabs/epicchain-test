@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Neo.Collector.Models;
+using EpicChain.Collector.Models;
 
-namespace Neo.Collector.Formats
+namespace EpicChain.Collector.Formats
 {
     partial class CoberturaFormat
     {
@@ -12,7 +12,7 @@ namespace Neo.Collector.Formats
         {
             readonly ContractCoverage contract;
 
-            NeoDebugInfo DebugInfo => contract.DebugInfo;
+            EpicChainDebugInfo DebugInfo => contract.DebugInfo;
 
             public ContractCoverageWriter(ContractCoverage contract)
             {
@@ -43,7 +43,7 @@ namespace Neo.Collector.Formats
                 writer.WriteEndElement();
                 writer.WriteEndElement();
 
-                (string @namespace, string filename) NamespaceAndFilename(NeoDebugInfo.Method method)
+                (string @namespace, string filename) NamespaceAndFilename(EpicChainDebugInfo.Method method)
                 {
                     var indexes = method.SequencePoints
                         .Select(sp => sp.Document)
@@ -60,7 +60,7 @@ namespace Neo.Collector.Formats
                     return (method.Namespace, string.Empty);
                 }
             }
-            internal void WriteClass(XmlWriter writer, string name, string filename, IEnumerable<NeoDebugInfo.Method> methods)
+            internal void WriteClass(XmlWriter writer, string name, string filename, IEnumerable<EpicChainDebugInfo.Method> methods)
             {
                 var lineRate = methods.SelectMany(m => m.SequencePoints).CalculateLineRate(GetAddressHit);
                 var branchRate = contract.InstructionMap.CalculateBranchRate(methods, GetBranchHit);
@@ -92,7 +92,7 @@ namespace Neo.Collector.Formats
                 writer.WriteEndElement();
             }
 
-            internal void WriteMethod(XmlWriter writer, NeoDebugInfo.Method method)
+            internal void WriteMethod(XmlWriter writer, EpicChainDebugInfo.Method method)
             {
                 var signature = string.Join(", ", method.Parameters.Select(p => p.Type));
                 var lineRate = method.SequencePoints.CalculateLineRate(GetAddressHit);
@@ -112,7 +112,7 @@ namespace Neo.Collector.Formats
                 writer.WriteEndElement();
             }
 
-            internal void WriteLine(XmlWriter writer, NeoDebugInfo.Method method, int index)
+            internal void WriteLine(XmlWriter writer, EpicChainDebugInfo.Method method, int index)
             {
                 var sp = method.SequencePoints[index];
                 var hits = contract.HitMap.TryGetValue(sp.Address, out var value) ? value : 0;

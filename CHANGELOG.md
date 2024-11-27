@@ -1,4 +1,4 @@
-# Neo Test Change Log
+# EpicChain Test Change Log
 
 All notable changes to this project will be documented in this file.
 
@@ -22,49 +22,49 @@ may not exactly match a publicly released version.
 
 ### Changed
 
-* Always generate debug info, regardless of configuration property, unless `NeoCscDebugInfo` property is false ([#37](https://github.com/ngdenterprise/neo-test/pull/37))
-* Updated to Neo 3.4 ([#39](https://github.com/ngdenterprise/neo-test/pull/39))
+* Always generate debug info, regardless of configuration property, unless `EpicChainCscDebugInfo` property is false ([#37](https://github.com/ngdenterprise/neo-test/pull/37))
+* Updated to EpicChain 3.4 ([#39](https://github.com/ngdenterprise/neo-test/pull/39))
 
 ## [3.3.23] - 2022-07-06
 
 ### Added
-* Adds `ContractNameOverride` property to `NeoContractReference` items to control the name of the generated contract interface (#35)
+* Adds `ContractNameOverride` property to `EpicChainContractReference` items to control the name of the generated contract interface (#35)
 
 ### Changed
-* Pass .csproj file instead of .cs sources to NeoCsc task due to [existing nccs issue](https://github.com/neo-project/neo-devpack-dotnet/issues/759) (#34)
+* Pass .csproj file instead of .cs sources to EpicChainCsc task due to [existing nccs issue](https://github.com/neo-project/neo-devpack-dotnet/issues/759) (#34)
 
 ### Fixed
-* `NeoContractInterface` fails if generated contract interface name isn't a valid C# type name (#33)
-* Test projects that specify `NeoContractReference` items correctly build referenced projects first (#35)
+* `EpicChainContractInterface` fails if generated contract interface name isn't a valid C# type name (#33)
+* Test projects that specify `EpicChainContractReference` items correctly build referenced projects first (#35)
 
 
 ## [3.3] - 2022-06-28
 
 ### Added
 
-* NeoCsc and NeoExpressBatch MSBuild tasks (plus .targets file)
+* EpicChainCsc and EpicChainExpressBatch MSBuild tasks (plus .targets file)
 * Abstract DotNetToolTask for invoking dotnet tools installed globally or locally
   * Added ValidateVersion virtual to DotNetToolTask (#25)
 * `ScriptBuilder.EmitContractCall` extension methods
 * `NativeContracts` static class 
-  * `NeoToken` and `GasToken` contract hashes
-* `Nep17Token` and `NeoToken` contract interfaces for use with `NeoTestHarness`
+  * `EpicChainToken` and `EpicPulseToken` contract hashes
+* `Xep17Token` and `EpicChainToken` contract interfaces for use with `EpicChainTestHarness`
 
 ### Changed
 
-* Use ContractParameterParser.ConvertObject to convert object instances to ContractParameter in NeoTestHarness.Extensions.CreateScript (#20)
+* Use ContractParameterParser.ConvertObject to convert object instances to ContractParameter in EpicChainTestHarness.Extensions.CreateScript (#20)
 
 ## [3.1.10] - 2021-12-14
 
 ### Changed
 
-* Update to Neo 3.1.0, target framework net6.0 and language version 10
+* Update to EpicChain 3.1.0, target framework net8.0 and language version 10
 * Update to BlockchainToolkitLibrary 3.1.21
 * `CheckpointFixture.ProtocolSettings` changed from read only field to get only property.
 
 ### Added
 
-* Neo.Test.Runner tool (#17)
+* EpicChain.Test.Runner tool (#17)
 * `CheckpointFixture.CheckpointStore` get only property.
 
 ### Removed
@@ -75,27 +75,27 @@ may not exactly match a publicly released version.
 
 ### Changed
 
-* Update dependencies for Neo 3.0.3 release
+* Update dependencies for EpicChain 3.0.3 release
 
 ## [3.0.3] - 2021-08-06
 
 ### Changed
 
-* Update dependencies for Neo 3.0.2 release
+* Update dependencies for EpicChain 3.0.2 release
 
 ## [3.0] - 2021-08-02
 
 ### Changed
 
-* Neo N3 release support
-* Bumped major version to 3 for consistency with Neo N3 release
+* EpicChain  release support
+* Bumped major version to 3 for consistency with EpicChain  release
 * Update dependencies
 
 ## [1.0.40-preview] - 2021-07-21
 
 ### Changed
 
-* Neo N3 RC4 support
+* EpicChain  RC4 support
 * handle Array, Map, Signature and InteropInterface parameter types in ContractGenerator 
 * Update dependencies
 
@@ -108,7 +108,7 @@ may not exactly match a publicly released version.
 
 ### Changed
 
-* Update Neo.BlockchainToolkit3 dependency
+* Update EpicChain.BlockchainToolkit3 dependency
 * Update GitHub + Azure Pipeline Build files
 
 ### Fixed
@@ -120,20 +120,20 @@ may not exactly match a publicly released version.
 ### Changed
 
 * support DescriptionAttribute in GetContract<T>
-* Update Neo.BlockchainToolkit3 dependency
+* Update EpicChain.BlockchainToolkit3 dependency
 
 ## [1.0.32-preview] - 2021-06-04
 
 ### Changed
 
-* Neo N3 RC3 support
+* EpicChain  RC3 support
 * Move contract interface generation to new class (#12)
 
 ## [1.0.28-preview] - 2021-05-17
 
 ### Changed
 
-* Update Neo.BlockchainToolkit3 dependency
+* Update EpicChain.BlockchainToolkit3 dependency
 
 ### Fixed
 
@@ -143,21 +143,21 @@ may not exactly match a publicly released version.
 
 ### Changed
 
-* Neo N3 RC2 support
+* EpicChain  RC2 support
 * MSBuild build targets 
-  * `NeoExpressBatch` property triggers execution of `neoxp batch <batch file>`
-  * `TargetNeoContractName` property triggers execution of `nccs <project file>`
-  * `NeoContractReference` item triggers generation of contract interface from contract manifest
+  * `EpicChainExpressBatch` property triggers execution of `epicchain batch <batch file>`
+  * `TargetEpicChainContractName` property triggers execution of `nccs <project file>`
+  * `EpicChainContractReference` item triggers generation of contract interface from contract manifest
 
 ### Added
 
-* Non-generic `ExecuteScript` and `GetContract` methods in Neo.Test.Harness package
+* Non-generic `ExecuteScript` and `GetContract` methods in EpicChain.Test.Harness package
 
 ## [1.0.19-preview] - 2021-03-18
 
 ### Changed
 
-* Neo N3 RC1 support
+* EpicChain  RC1 support
 
 ## [1.0.6-preview] - 2021-02-08
 

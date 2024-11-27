@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
     internal enum DotNetToolType { Local, Global }
 
@@ -59,8 +59,8 @@ namespace Neo.BuildTasks
                 Log.LogMessage(MessageImportance.High, "Found {0} tool package {1} version {2}",
                     toolType, packageId, version);
 
-                var command = toolType == Neo.BuildTasks.DotNetToolType.Global ? Command : "dotnet";
-                var arguments = toolType == Neo.BuildTasks.DotNetToolType.Global
+                var command = toolType == EpicChain.BuildTasks.DotNetToolType.Global ? Command : "dotnet";
+                var arguments = toolType == EpicChain.BuildTasks.DotNetToolType.Global
                         ? GetArguments()
                         : Command + " " + GetArguments();
 

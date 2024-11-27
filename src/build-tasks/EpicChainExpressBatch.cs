@@ -3,12 +3,12 @@ using System.IO;
 using System.Text;
 using Microsoft.Build.Framework;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
-    public class NeoExpressBatch : DotNetToolTask
+    public class EpicChainExpressBatch : DotNetToolTask
     {
-        const string PACKAGE_ID = "Neo.Express";
-        const string COMMAND = "neoxp";
+        const string PACKAGE_ID = "EpicChain.Express";
+        const string COMMAND = "epicchain";
 
         protected override string Command => COMMAND;
         protected override string PackageId => PACKAGE_ID;

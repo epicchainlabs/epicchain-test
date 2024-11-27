@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 // using Microsoft.Build.Utilities.ProjectCreation;
-using Neo.BuildTasks;
+using EpicChain.BuildTasks;
 using Xunit.Abstractions;
 
 namespace build_tasks
@@ -85,10 +85,10 @@ namespace build_tasks
 
         // public static ProjectCreator ImportNeoBuildTools(this ProjectCreator @this)
         // {
-        //     var buildTasksPath = typeof(NeoCsc).Assembly.Location;
+        //     var buildTasksPath = typeof(EpicChainCsc).Assembly.Location;
         //     var testBuildAssmblyDirectory = Path.GetDirectoryName(typeof(TestBuild).Assembly.Location)
         //         ?? throw new Exception("Couldn't get directory name of TestBuild assembly");
-        //     var targetsPath = Path.Combine(testBuildAssmblyDirectory, "build", "Neo.BuildTasks.targets");
+        //     var targetsPath = Path.Combine(testBuildAssmblyDirectory, "build", "EpicChain.BuildTasks.targets");
 
         //     return @this
         //         .Property("NeoBuildTasksAssembly", buildTasksPath)
@@ -97,12 +97,12 @@ namespace build_tasks
 
         // public static ProjectCreator ReferenceNeo(this ProjectCreator @this, string version)
         // {
-        //     return @this.ItemPackageReference("Neo", version: version);
+        //     return @this.ItemPackageReference("EpicChain", version: version);
         // }
 
         // public static ProjectCreator ReferenceNeoScFx(this ProjectCreator @this, string version)
         // {
-        //     return @this.ItemPackageReference("Neo.SmartContract.Framework", version: version);
+        //     return @this.ItemPackageReference("EpicChain.SmartContract.Framework", version: version);
         // }
     }
 }

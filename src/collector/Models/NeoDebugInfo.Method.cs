@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Neo.Collector.Models
+namespace EpicChain.Collector.Models
 {
-    public partial class NeoDebugInfo
+    public partial class EpicChainDebugInfo
     {
         public struct Method
         {

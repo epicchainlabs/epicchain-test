@@ -1,6 +1,6 @@
 using System;
 
-namespace NeoTestHarness
+namespace EpicChainTestHarness
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class CheckpointPathAttribute : Attribute

@@ -1,4 +1,4 @@
-using Neo.SmartContract.Framework;
+using EpicChain.SmartContract.Framework;
 
 public class TestContract : TokenContract
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
     // https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#version-basics
     public readonly struct NugetPackageVersion : IComparable<NugetPackageVersion>

@@ -1,4 +1,4 @@
-namespace Neo.Collector.Models
+namespace EpicChain.Collector.Models
 {
     public enum OpCode : byte
     {

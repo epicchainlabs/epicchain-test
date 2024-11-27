@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
-using Neo.Collector.Models;
+using EpicChain.Collector.Models;
 
-namespace Neo.Collector
+namespace EpicChain.Collector
 {
     // Testable version of CodeCoverageDataCollector
     class CodeCoverageCollector
     {
-        internal const string TEST_HARNESS_NAMESPACE = "NeoTestHarness";
+        internal const string TEST_HARNESS_NAMESPACE = "EpicChainTestHarness";
         internal const string CONTRACT_ATTRIBUTE_NAME = "ContractAttribute";
         internal const string COVERAGE_FILE_EXT = ".neo-coverage";
         internal const string SCRIPT_FILE_EXT = ".neo-script";
@@ -35,7 +35,7 @@ namespace Neo.Collector
         public void LoadDebugInfoSetting(string path, string name)
         {
             if (verboseLog) logger.LogWarning($"LoadDebugInfoSetting {path}");
-            if (NeoDebugInfo.TryLoad(path, out var debugInfo))
+            if (EpicChainDebugInfo.TryLoad(path, out var debugInfo))
             {
                 if (string.IsNullOrEmpty(name))
                 {
@@ -57,7 +57,7 @@ namespace Neo.Collector
                 foreach (var type in asm.DefinedTypes)
                 {
                     if (TryGetContractAttribute(type, out var contractName, out var manifestPath)
-                        && NeoDebugInfo.TryLoadManifestDebugInfo(manifestPath, out var debugInfo))
+                        && EpicChainDebugInfo.TryLoadManifestDebugInfo(manifestPath, out var debugInfo))
                     {
                         TrackContract(contractName, debugInfo);
                     }
@@ -89,7 +89,7 @@ namespace Neo.Collector
             return false;
         }
 
-        public void TrackContract(string contractName, NeoDebugInfo debugInfo)
+        public void TrackContract(string contractName, EpicChainDebugInfo debugInfo)
         {
             if (verboseLog) logger.LogWarning($"TrackContract {contractName}");
             if (!coverageMap.ContainsKey(debugInfo.Hash))

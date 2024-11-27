@@ -3,9 +3,9 @@ using System.Numerics;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
-using Neo.VM.Types;
+using EpicChain.VM.Types;
 
-namespace Neo.Assertions
+namespace EpicChain.Assertions
 {
     public class StackItemAssertions : ReferenceTypeAssertions<StackItem, StackItemAssertions>
     {

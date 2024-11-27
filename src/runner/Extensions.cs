@@ -2,12 +2,12 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions;
 using System.Linq;
-using Neo.BlockchainToolkit;
-using Neo.BlockchainToolkit.Models;
-using Neo.Persistence;
-using Neo.SmartContract.Native;
+using EpicChain.BlockchainToolkit;
+using EpicChain.BlockchainToolkit.Models;
+using EpicChain.Persistence;
+using EpicChain.SmartContract.Native;
 
-namespace Neo.Test.Runner
+namespace EpicChain.Test.Runner
 {
     static class Extensions
     {
@@ -23,7 +23,7 @@ namespace Neo.Test.Runner
                 {
                     if (chain.TryGetDefaultAccount(name, out var account))
                     {
-                        scriptHash = Neo.Wallets.Helper.ToScriptHash(account.ScriptHash, chain.AddressVersion);
+                        scriptHash = EpicChain.Wallets.Helper.ToScriptHash(account.ScriptHash, chain.AddressVersion);
                         return true;
                     }
 

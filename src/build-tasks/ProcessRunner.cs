@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
     public readonly struct ProcessResults
     {

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" TreatAsLocalProperty="NeoBuildTasksFolder;NeoBuildTasksAssembly">
+
+  <PropertyGroup>
+    <NeoBuildTasksFolder Condition=" '$(MSBuildRuntimeType)' == 'Core' ">netstandard2.0</NeoBuildTasksFolder>
+    <NeoBuildTasksFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472</NeoBuildTasksFolder>
+    <_NeoBuildTasksAssemblyPath>$([MSBuild]::ValueOrDefault('$(NeoBuildTasksAssembly)', '$(MSBuildThisFileDirectory)..\tasks\$(NeoBuildTasksFolder)\neo-build-tasks.dll'))</_NeoBuildTasksAssemblyPath>
+    <CleanDependsOn>$(CleanDependsOn);CleanEpicChainCsc;CleanEpicChainExpressBatch</CleanDependsOn>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(_NeoBuildTasksAssemblyPath)" TaskName="EpicChain.BuildTasks.EpicChainContractInterface"/>
+  <UsingTask AssemblyFile="$(_NeoBuildTasksAssemblyPath)" TaskName="EpicChain.BuildTasks.EpicChainCsc"/>
+  <UsingTask AssemblyFile="$(_NeoBuildTasksAssemblyPath)" TaskName="EpicChain.BuildTasks.EpicChainExpressBatch"/>
+
+  <Target Name="ConfigureEpicChainCsc">
+    <PropertyGroup>
+      <EpicChainCscOutputFolder Condition="'$(EpicChainContractOutput)'==''">$([MSBuild]::NormalizePath($(MSBuildProjectDirectory), 'bin\sc'))</EpicChainCscOutputFolder>
+      <EpicChainCscOutputFolder Condition="'$(EpicChainContractOutput)'!=''">$(EpicChainContractOutput)</EpicChainCscOutputFolder>
+
+      <EpicChainCscContractPath>$([MSBuild]::NormalizePath($(EpicChainCscOutputFolder), '$(EpicChainContractName).nef'))</EpicChainCscContractPath>
+      <EpicChainCscManifestPath>$([MSBuild]::NormalizePath($(EpicChainCscOutputFolder), '$(EpicChainContractName).manifest.json'))</EpicChainCscManifestPath>
+      <EpicChainCscDebugInfoPath>$([MSBuild]::NormalizePath($(EpicChainCscOutputFolder), '$(EpicChainContractName).nefdbgnfo'))</EpicChainCscDebugInfoPath>
+      <EpicChainCscAssemblyPath>$([MSBuild]::NormalizePath($(EpicChainCscOutputFolder), '$(EpicChainContractName).asm'))</EpicChainCscAssemblyPath>
+
+      <EpicChainCscOptimize>true</EpicChainCscOptimize>
+      <EpicChainCscOptimize Condition="'$(Configuration)'=='Debug'">false</EpicChainCscOptimize>
+      <EpicChainCscDebugInfo Condition="'$(EpicChainCscDebugInfo)'==''">true</EpicChainCscDebugInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <EpicChainCscOutput Include="$(EpicChainCscContractPath)" />
+      <EpicChainCscOutput Include="$(EpicChainCscManifestPath)" />
+      <EpicChainCscOutput Include="$(EpicChainCscDebugInfoPath)" Condition="'$(EpicChainCscDebugInfo)'=='true'" />
+      <EpicChainCscOutput Include="$(EpicChainCscAssemblyPath)" Condition="'$(EpicChainContractAssembly)'=='true'"/>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ExecuteEpicChainCsc" AfterTargets="Compile" 
+    DependsOnTargets="ConfigureEpicChainCsc"
+    Condition="'$(EpicChainContractName)'!=''"
+    Inputs="$(MSBuildProjectFullPath);@(Compile);" Outputs="@(EpicChainCscOutput)">
+
+    <EpicChainCsc 
+      Assembly="$(EpicChainContractAssembly)"
+      BaseFileName="$(EpicChainContractName)"
+      Debug="$(EpicChainCscDebugInfo)"
+      Inline="$(EpicChainCscOptimize)"
+      Optimize="$(EpicChainCscOptimize)"
+      Output="$(EpicChainContractOutput)"
+      Sources="$(MSBuildProjectFullPath)"
+      WorkingDirectory="$(MSBuildProjectDirectory)"/>
+  </Target>
+
+  <Target Name="EpicChainCscMessage" AfterTargets="ExecuteEpicChainCsc" Condition="'$(EpicChainContractName)'!=''">
+    <Message Importance="High" Text="$(EpicChainContractName) -&gt; $(EpicChainCscContractPath)" />
+  </Target>
+
+  <Target Name="GetEpicChainContractInfo" Returns="@(NeoContractInfo)" DependsOnTargets="ConfigureEpicChainCsc">
+    <ItemGroup Condition="'$(EpicChainContractName)'!=''" >
+      <NeoContractInfo Include="$(EpicChainContractName)">
+        <NefPath>$(EpicChainCscContractPath)</NefPath>
+        <ManifestPath>$(EpicChainCscManifestPath)</ManifestPath>
+      </NeoContractInfo>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ConfigureEpicChainExpressBatch">
+    <PropertyGroup>
+      <EpicChainExpressTouchFile>$([MSBuild]::NormalizePath($(IntermediateOutputPath), '$(EpicChainExpressBatchFile).epicchain.touch'))</EpicChainExpressTouchFile>
+      <NeoExpressNormalizedBatchFile>$([MSBuild]::NormalizePath($(MSBuildProjectDirectory), $(EpicChainExpressBatchFile)))</NeoExpressNormalizedBatchFile>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="ExecuteEpicChainExpressBatch"
+    AfterTargets="Build" 
+    DependsOnTargets="ConfigureEpicChainExpressBatch;ExecuteEpicChainCsc"
+    Condition="'$(EpicChainExpressBatchFile)'!=''"
+    Inputs="@(EpicChainCscOutput);$(EpicChainExpressBatchFile);$(EpicChainExpressTouchFile)" Outputs="$(EpicChainExpressTouchFile)">
+
+    <PropertyGroup>
+      <EpicChainExpressBatchReset>true</EpicChainExpressBatchReset>
+      <EpicChainExpressBatchReset Condition="'$(EpicChainExpressBatchNoReset)'=='true'">false</EpicChainExpressBatchReset>
+    </PropertyGroup>
+
+    <EpicChainExpressBatch 
+      BatchFile="$(NeoExpressNormalizedBatchFile)" 
+      InputFile="$(EpicChainExpressBatchInputFile)"
+      Reset="$(EpicChainExpressBatchReset)"
+      Checkpoint="$(EpicChainExpressBatchCheckpoint)"
+      Trace="$(EpicChainExpressBatchTrace)"
+      StackTrace="$(EpicChainExpressBatchStackTrace)"
+      WorkingDirectory="$(MSBuildProjectDirectory)" />
+    <Touch Files="$(EpicChainExpressTouchFile)" AlwaysCreate="true" />
+
+    <Message Importance="High" Text="NeoExpress Batch -> $(NeoExpressNormalizedBatchFile)" />
+  </Target>
+
+  <!-- 
+    dotnet build happens in two phases: Restore and Build
+
+    Restore phase
+      _GetAllRestoreProjectPathItems target recursively invokes the _GenerateRestoreProjectPathWalk target on the current project
+      _GenerateRestoreProjectPathWalk depends eventually depends on _GenerateRestoreProjectPathItemsPerFramework target which takes @(ProjectReference) as input
+    RestoreEpicChainContractReferences adds EpicChainContractReference items to ProjectReference items before _GenerateRestoreProjectPathItemsPerFramework runs
+
+    Build phase
+      ResolveProjectReferences will build all projects in @(_MSBuildProjectReferenceExistent)
+      ResolveProjectReferences depends on PrepareProjectReferences, which in turn depends on AssignProjectConfiguration
+    RestoreEpicChainContractReferences adds EpicChainContractReference items to ProjectReference items before AssignProjectConfiguration runs
+  -->
+
+  <Target Name="RestoreEpicChainContractReferences"
+          Condition="'@(EpicChainContractReference)'!=''"
+          BeforeTargets="_GenerateRestoreProjectPathItemsPerFramework;AssignProjectConfiguration">
+    <ItemGroup>
+      <ProjectReference Include="@(EpicChainContractReference)" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="PrepareEpicChainContractReferences"
+          Condition="'@(EpicChainContractReference)'!=''"
+          BeforeTargets="ResolveProjectReferences">
+
+    <MSBuild Projects="@(EpicChainContractReference)" Targets="GetEpicChainContractInfo">
+      <Output TaskParameter="TargetOutputs" ItemName="_EpicChainContractReferenceInfo" />
+    </MSBuild>
+
+    <ItemGroup>
+      <EpicChainContractGeneration Include="%(_EpicChainContractReferenceInfo.Identity)">
+        <ManifestPath>%(ManifestPath)</ManifestPath>
+        <ContractNameOverride>$([MSBuild]::ValueOrDefault('%(_EpicChainContractReferenceInfo.ContractNameOverride)', ''))</ContractNameOverride>
+      </EpicChainContractGeneration>
+    </ItemGroup>
+
+    <Message Importance="High" Text="PrepareEpicChainContractReferences @(_EpicChainContractReferenceInfo) -> %(ManifestPath)" />
+  </Target>
+
+  <Target Name="PrepareEpicChainContractGeneration"
+          Condition="'@(EpicChainContractGeneration)'!=''"
+          BeforeTargets="GenerateEpicChainContractInterface"
+          AfterTargets="PrepareEpicChainContractReferences">
+
+    <ItemGroup>
+      <EpicChainContractGeneration Include="@(EpicChainContractGeneration)">
+        <OutputPath>$([MSBuild]::ValueOrDefault('%(EpicChainContractGeneration.OutputPath)', '$(IntermediateOutputPath)%(Identity).contract-interface.cs'))</OutputPath>
+        <ContractNameOverride>$([MSBuild]::ValueOrDefault('%(EpicChainContractGeneration.ContractNameOverride)', ''))</ContractNameOverride>
+      </EpicChainContractGeneration>
+    </ItemGroup>
+
+  </Target>
+
+  <Target Name="GenerateEpicChainContractInterface" 
+          AfterTargets="ResolveProjectReferences"
+          DependsOnTargets="PrepareEpicChainContractGeneration"
+          Inputs="%(EpicChainContractGeneration.ManifestPath)" 
+          Outputs="%(EpicChainContractGeneration.OutputPath)">
+
+    <Message Importance="High" Text="Generating %(EpicChainContractGeneration.OutputPath)" />
+
+    <EpicChainContractInterface
+      ManifestFile="%(EpicChainContractGeneration.ManifestPath)"
+      OutputFile="%(EpicChainContractGeneration.OutputPath)"
+      RootNamespace="$(RootNamespace)"
+      ContractNameOverride="%(ContractNameOverride)" />
+
+    <ItemGroup>
+      <Compile Include="%(EpicChainContractGeneration.OutputPath)" />
+    </ItemGroup>
+
+  </Target>
+
+  <Target Name="CleanEpicChainCsc" 
+    DependsOnTargets="ConfigureEpicChainCsc"
+    Condition="'$(EpicChainContractName)'!=''">
+
+    <Delete Files="@(EpicChainCscOutput)" TreatErrorsAsWarnings="true"/>
+
+  </Target>
+
+  <Target Name="CleanEpicChainExpressBatch"
+    DependsOnTargets="ConfigureEpicChainExpressBatch"
+    Condition="'$(EpicChainExpressBatchFile)'!=''">
+
+     <Delete Files="$(EpicChainExpressTouchFile)" TreatErrorsAsWarnings="true"/>
+
+  </Target>
+
+</Project>

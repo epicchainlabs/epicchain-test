@@ -1,13 +1,13 @@
 using System;
 using System.IO;
 using System.IO.Abstractions;
-using Neo;
-using Neo.BlockchainToolkit;
-using Neo.BlockchainToolkit.Models;
-using Neo.BlockchainToolkit.Persistence;
-using Neo.Persistence;
+using EpicChain;
+using EpicChain.BlockchainToolkit;
+using EpicChain.BlockchainToolkit.Models;
+using EpicChain.BlockchainToolkit.Persistence;
+using EpicChain.Persistence;
 
-namespace NeoTestHarness
+namespace EpicChainTestHarness
 {
     public abstract class CheckpointFixture : IDisposable
     {

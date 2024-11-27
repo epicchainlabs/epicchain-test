@@ -1,4 +1,4 @@
-using Neo.BuildTasks;
+using EpicChain.BuildTasks;
 using Xunit;
 
 namespace build_tasks

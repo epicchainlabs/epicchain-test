@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Neo.Collector.Models
+namespace EpicChain.Collector.Models
 {
     struct Instruction
     {

@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using SimpleJSON;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
-    // Parse Manifest ABI JSON manually using SimpleJSON to avoid taking dependency on neo.dll or a JSON parsing package
-    public class NeoManifest
+    // Parse Manifest ABI JSON manually using SimpleJSON to avoid taking dependency on EpicChain.dll or a JSON parsing package
+    public class EpicChainManifest
     {
         public class Method
         {
@@ -26,21 +26,21 @@ namespace Neo.BuildTasks
         public IReadOnlyList<Method> Methods { get; set; } = Array.Empty<Method>();
         public IReadOnlyList<Event> Events { get; set; } = Array.Empty<Event>();
 
-        public static NeoManifest Load(string manifestPath)
+        public static EpicChainManifest Load(string manifestPath)
         {
             var text = File.ReadAllText(manifestPath) ?? throw new FileNotFoundException("", manifestPath);
             var json = SimpleJSON.JSON.Parse(text) ?? throw new InvalidOperationException();
-            return NeoManifest.FromManifestJson(json);
+            return EpicChainManifest.FromManifestJson(json);
         }
 
-        public static NeoManifest FromManifestJson(SimpleJSON.JSONNode json)
+        public static EpicChainManifest FromManifestJson(SimpleJSON.JSONNode json)
         {
             var contractName = json["name"].Value;
             var abi = json["abi"];
             var methods = abi["methods"].Linq.Select(kvp => MethodFromJson(kvp.Value));
             var events = abi["events"].Linq.Select(kvp => EventFromJson(kvp.Value));
 
-            return new NeoManifest
+            return new EpicChainManifest
             {
                 Name = contractName,
                 Methods = methods.ToList(),

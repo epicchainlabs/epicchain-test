@@ -1,6 +1,6 @@
 using System;
 
-namespace NeoTestHarness
+namespace EpicChainTestHarness
 {
     public class CheckpointFixture<T> : CheckpointFixture
     {

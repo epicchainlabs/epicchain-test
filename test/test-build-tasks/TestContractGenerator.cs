@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Neo.BuildTasks;
+using EpicChain.BuildTasks;
 using Xunit;
 
 namespace build_tasks
@@ -10,14 +10,14 @@ namespace build_tasks
         [Fact]
         public void throws_on_invalid_type_name()
         {
-            var manifest = new NeoManifest() { Name = "Invalid Type Name" };
+            var manifest = new EpicChainManifest() { Name = "Invalid Type Name" };
             Assert.ThrowsAny<Exception>(() => ContractGenerator.GenerateContractInterface(manifest, "", "", ""));
         }
 
         [Fact]
         public void generates_on_valid_type_name()
         {
-            var manifest = new NeoManifest() { Name = "ValidTypeName" };
+            var manifest = new EpicChainManifest() { Name = "ValidTypeName" };
             var manifestPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()); 
             var code = ContractGenerator.GenerateContractInterface(manifest, manifestPath, "", "");
             Assert.NotEqual(-1, code.IndexOf("interface ValidTypeName"));
@@ -26,7 +26,7 @@ namespace build_tasks
         [Fact]
         public void generates_on_dotted_type_name()
         {
-            var manifest = new NeoManifest() { Name = "Dotted.Type.Name" };
+            var manifest = new EpicChainManifest() { Name = "Dotted.Type.Name" };
             var manifestPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());  
             var code = ContractGenerator.GenerateContractInterface(manifest, manifestPath, "", "");
             Assert.NotEqual(-1, code.IndexOf("interface Name"));
@@ -35,7 +35,7 @@ namespace build_tasks
         [Fact]
         public void generates_on_contract_name_override()
         {
-            var manifest = new NeoManifest() { Name = "Invalid Type Name" };
+            var manifest = new EpicChainManifest() { Name = "Invalid Type Name" };
             var manifestPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             var code = ContractGenerator.GenerateContractInterface(manifest, manifestPath, "ValidTypeName", "");
             Assert.NotEqual(-1, code.IndexOf("interface ValidTypeName"));
@@ -44,14 +44,14 @@ namespace build_tasks
         [Fact]
         public void throws_on_invalid_contract_name_override()
         {
-            var manifest = new NeoManifest() { Name = "ValidTypeName" };
+            var manifest = new EpicChainManifest() { Name = "ValidTypeName" };
             Assert.ThrowsAny<Exception>(() => ContractGenerator.GenerateContractInterface(manifest, "", "Invalid Type Name", ""));
         }
 
         [Fact]
         public void throws_on_dotted_contract_name_override()
         {
-            var manifest = new NeoManifest() { Name = "ValidTypeName" };
+            var manifest = new EpicChainManifest() { Name = "ValidTypeName" };
             Assert.ThrowsAny<Exception>(() => ContractGenerator.GenerateContractInterface(manifest, "", "Dotted.Type.Name", ""));
         }
     }

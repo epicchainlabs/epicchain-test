@@ -5,12 +5,12 @@ using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
-    public class NeoCsc : DotNetToolTask
+    public class EpicChainCsc : DotNetToolTask
     {
         readonly static NugetPackageVersion REQUIRED_VERSION = new NugetPackageVersion(3, 3, 0);
-        const string PACKAGE_ID = "Neo.Compiler.CSharp";
+        const string PACKAGE_ID = "EpicChain.Compiler.CSharp";
         const string COMMAND = "nccs";
         const byte DEFAULT_ADDRESS_VERSION = 53;
 
@@ -35,7 +35,7 @@ namespace Neo.BuildTasks
         {
             if (version < REQUIRED_VERSION)
             {
-                Log.LogWarning($"{nameof(NeoCsc)} requires {REQUIRED_VERSION}. {version} found");
+                Log.LogWarning($"{nameof(EpicChainCsc)} requires {REQUIRED_VERSION}. {version} found");
                 return false;
             }
             return true;

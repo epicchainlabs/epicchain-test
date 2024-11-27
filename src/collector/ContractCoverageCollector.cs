@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using Neo.Collector.Models;
-using static Neo.Collector.Models.ContractCoverage;
+using EpicChain.Collector.Models;
+using static EpicChain.Collector.Models.ContractCoverage;
 
-namespace Neo.Collector
+namespace EpicChain.Collector
 {
     class ContractCoverageCollector
     {
         readonly string contractName;
-        readonly NeoDebugInfo debugInfo;
+        readonly EpicChainDebugInfo debugInfo;
         readonly Dictionary<int, uint> hitMap = new();
         readonly Dictionary<int, (uint branchCount, uint continueCount)> branchMap = new();
         IReadOnlyDictionary<int, Instruction> instructionMap = ImmutableDictionary<int, Instruction>.Empty;
@@ -19,7 +19,7 @@ namespace Neo.Collector
         public IReadOnlyDictionary<int, uint> HitMap => hitMap;
         public IReadOnlyDictionary<int, (uint branchCount, uint continueCount)> BranchMap => branchMap;
 
-        public ContractCoverageCollector(string contractName, NeoDebugInfo debugInfo)
+        public ContractCoverageCollector(string contractName, EpicChainDebugInfo debugInfo)
         {
             this.contractName = contractName;
             this.debugInfo = debugInfo;

@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Neo.Collector;
-using Neo.Collector.Formats;
-using Neo.Collector.Models;
+using EpicChain.Collector;
+using EpicChain.Collector.Formats;
+using EpicChain.Collector.Models;
 using Xunit;
 
 namespace test_collector;

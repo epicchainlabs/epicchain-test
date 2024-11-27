@@ -3,9 +3,9 @@ using System.Numerics;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
-using Neo.SmartContract;
+using EpicChain.SmartContract;
 
-namespace Neo.Assertions
+namespace EpicChain.Assertions
 {
     public class StorageItemAssertions : ReferenceTypeAssertions<StorageItem, StorageItemAssertions>
     {

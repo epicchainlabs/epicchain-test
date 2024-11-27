@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Neo.Collector.Models
+namespace EpicChain.Collector.Models
 {
     public struct Hash160 : IComparable<Hash160>, IEquatable<Hash160>
     {

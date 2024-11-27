@@ -3,13 +3,13 @@ using Xunit;
 
 namespace build_tasks
 {
-    public class TestNeoManifest
+    public class TestEpicChainManifest
     {
         [Fact]
         public void parse_sample_manifest()
         {
             var json = SimpleJSON.JSON.Parse(MANIFEST) ?? throw new InvalidOperationException();
-            var manifest = Neo.BuildTasks.NeoManifest.FromManifestJson(json);
+            var manifest = EpicChain.BuildTasks.EpicChainManifest.FromManifestJson(json);
             Assert.Equal("DevHawk.Contracts.ApocToken", manifest.Name);
             Assert.Equal(13, manifest.Methods.Count);
             Assert.Equal(1, manifest.Events.Count);
@@ -189,13 +189,13 @@ namespace build_tasks
     ""trusts"": [],
     ""name"": ""DevHawk.Contracts.ApocToken"",
     ""supportedstandards"": [
-        ""NEP17"",
-        ""NEP10""
+        ""XsEP17"",
+        ""XEP10""
     ],
     ""extra"": {
         ""Author"": ""Harry Pierson"",
         ""Email"": ""harrypierson@hotmail.com"",
-        ""Description"": ""This is a NEP17 example""
+        ""Description"": ""This is a XEP17 example""
     }
 }";
     }

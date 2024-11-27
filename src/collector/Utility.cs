@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Neo.Collector.Models;
+using EpicChain.Collector.Models;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Neo.Collector
+namespace EpicChain.Collector
 {
     static class Utility
     {

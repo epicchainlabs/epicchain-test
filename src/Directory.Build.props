@@ -2,9 +2,9 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   
   <PropertyGroup>
-    <Authors>The Neo Project</Authors>
-    <Company>The Neo Project</Company>
-    <Copyright>2015-2021 The Neo Project</Copyright>
+    <Authors>The EpicChain Project</Authors>
+    <Company>The EpicChain Project</Company>
+    <Copyright>2015-2021 The EpicChain Project</Copyright>
     <PackageIcon>ngdsea.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/ngdenterprise/neo-test</PackageProjectUrl>
@@ -22,7 +22,7 @@
     <BlockchainToolkitLibraryVersion>3.5.32</BlockchainToolkitLibraryVersion>
     <!-- <BlockchainToolkitLibraryVersion>local</BlockchainToolkitLibraryVersion> -->
     <BlockchainToolkitLibraryLocalPath>..\..\..\lib-bctk</BlockchainToolkitLibraryLocalPath>
-    <NeoVersion>3.5.0</NeoVersion>
+    <EpicChainVersion>1.0.0</EpicChainVersion>
     <NeoMonorepoPath>..\..\..\..\official\3neo-monorepo</NeoMonorepoPath>
 
   </PropertyGroup>

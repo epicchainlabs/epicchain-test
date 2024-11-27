@@ -5,12 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
-using Neo.Collector.Formats;
-using Neo.Collector.Models;
+using EpicChain.Collector.Formats;
+using EpicChain.Collector.Models;
 
-namespace Neo.Collector
+namespace EpicChain.Collector
 {
-    [DataCollectorFriendlyName("Neo code coverage")]
+    [DataCollectorFriendlyName("EpicChain code coverage")]
     [DataCollectorTypeUri("datacollector://Neo/ContractCodeCoverage/1.0")]
     public partial class CodeCoverageDataCollector : DataCollector, ITestExecutionEnvironmentSpecifier
     {

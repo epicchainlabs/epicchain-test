@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Neo.Collector.Models
+namespace EpicChain.Collector.Models
 {
     public partial class NefFile
     {

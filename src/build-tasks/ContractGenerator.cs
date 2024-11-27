@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using static Neo.BuildTasks.CSharpHelpers;
+using static EpicChain.BuildTasks.CSharpHelpers;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
     public static class ContractGenerator
     {
-        public static string GenerateContractInterface(NeoManifest manifest, string manifestFile, string contractNameOverride, string @namespace)
+        public static string GenerateContractInterface(EpicChainManifest manifest, string manifestFile, string contractNameOverride, string @namespace)
         {
             var manifestName = manifest.Name.Replace("\"", "\"\"");
             var contractName = string.IsNullOrEmpty(contractNameOverride)
@@ -38,12 +38,12 @@ namespace Neo.BuildTasks
                 builder.IncrementIndent();
             }
             builder.AppendLines($@"#if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
-[System.CodeDom.Compiler.GeneratedCode(""Neo.BuildTasks"",""{ThisAssembly.AssemblyFileVersion}"")]
+[System.CodeDom.Compiler.GeneratedCode(""EpicChain.BuildTasks"",""{ThisAssembly.AssemblyFileVersion}"")]
 #endif
 ");
             builder.AppendLine($"[System.ComponentModel.Description(@\"{manifestName}\")]");
             builder.AppendLine("#if !OMIT_TEST_HARNESS_ATTRIBUTES");
-            builder.AppendLine($"[NeoTestHarness.Contract(@\"{manifestName}\", @\"{manifestFile}\")]");
+            builder.AppendLine($"[EpicChainTestHarness.Contract(@\"{manifestName}\", @\"{manifestFile}\")]");
             builder.AppendLine("#endif");
             builder.AppendLine($"interface {contractName} {{");
             builder.IncrementIndent();
@@ -89,16 +89,16 @@ namespace Neo.BuildTasks
             switch (parameterType)
             {
                 case "Any": return "object";
-                case "Array": return "Neo.VM.Types.Array";
+                case "Array": return "EpicChain.VM.Types.Array";
                 case "Boolean": return "bool";
                 case "ByteArray": return "byte[]";
-                case "Hash160": return "Neo.UInt160";
-                case "Hash256": return "Neo.UInt256";
+                case "Hash160": return "EpicChain.UInt160";
+                case "Hash256": return "EpicChain.UInt256";
                 case "Integer": return "System.Numerics.BigInteger";
-                case "InteropInterface": return "Neo.VM.Types.InteropInterface";
-                case "PublicKey": return "Neo.Cryptography.ECC.ECPoint";
-                case "Map": return "Neo.VM.Types.Map";
-                case "Signature": return "Neo.VM.Types.ByteString";
+                case "InteropInterface": return "EpicChain.VM.Types.InteropInterface";
+                case "PublicKey": return "EpicChain.Cryptography.ECC.ECPoint";
+                case "Map": return "EpicChain.VM.Types.Map";
+                case "Signature": return "EpicChain.VM.Types.ByteString";
                 case "String": return "string";
                 case "Void": return "void";
                 default: throw new FormatException($"Invalid parameter type {parameterType}");

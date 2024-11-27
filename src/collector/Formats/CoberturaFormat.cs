@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Neo.Collector.Models;
+using EpicChain.Collector.Models;
 
-namespace Neo.Collector.Formats
+namespace EpicChain.Collector.Formats
 {
     partial class CoberturaFormat : ICoverageFormat
     {

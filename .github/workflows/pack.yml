@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: packages
-        path: ./out/Neo.*.nupkg
+        path: ./out/EpicChain.*.nupkg
     - name: Upload Build Log
       if: always()
       uses: actions/upload-artifact@v3

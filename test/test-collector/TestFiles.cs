@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Neo.Collector;
-using Neo.Collector.Models;
+using EpicChain.Collector;
+using EpicChain.Collector.Models;
 
 namespace test_collector;
 
@@ -13,14 +13,14 @@ static class TestFiles
     {
         var debugInfo = GetResource(debugInfoFileName, stream =>
         {
-            if (debugInfoFileName.EndsWith(NeoDebugInfo.NEF_DBG_NFO_EXTENSION))
+            if (debugInfoFileName.EndsWith(EpicChainDebugInfo.NEF_DBG_NFO_EXTENSION))
             {
-                return NeoDebugInfo.TryLoadCompressed(stream, out var debugInfo)
-                    ? debugInfo : throw new Exception("NeoDebugInfo.TryLoadCompressed failed");
+                return EpicChainDebugInfo.TryLoadCompressed(stream, out var debugInfo)
+                    ? debugInfo : throw new Exception("EpicChainDebugInfo.TryLoadCompressed failed");
             }
-            else if (debugInfoFileName.EndsWith(NeoDebugInfo.DEBUG_JSON_EXTENSION))
+            else if (debugInfoFileName.EndsWith(EpicChainDebugInfo.DEBUG_JSON_EXTENSION))
             {
-                return NeoDebugInfo.Load(stream);
+                return EpicChainDebugInfo.Load(stream);
             }
             else
             {

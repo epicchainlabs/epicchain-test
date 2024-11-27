@@ -4,31 +4,31 @@ Neo-Test can collect code coverage from tests that use [TestApplicationEngine](h
 
 > Note, this documentation is for collecting smart contract code coverage from tests written in C#. 
   The contracts themselves can be written in languages other than C#, but the tests have to be written
-  in C# to use this coverage collection. Neo.Test.Runner can be used to run tests and collect coverage
+  in C# to use this coverage collection. EpicChain.Test.Runner can be used to run tests and collect coverage
   without using C#.
 
 ## Preview Release
 
-Neo.Collector has not been officially released yet. However, you can still try it out *right now* if 
-you're willing to pull the latest bits from the Neo Blockchain Toolkit artifacts server. The Neo Registrar
+EpicChain.Collector has not been officially released yet. However, you can still try it out *right now* if 
+you're willing to pull the latest bits from the EpicChain Blockchain Toolkit artifacts server. The EpicChain Registrar
 sample's test project has been updated to collect code coverage. Please check out the  
 [code-coverage branch](https://github.com/ngdenterprise/neo-registrar-sample/tree/code-coverage)
-if you want to see Neo.Collector in action.
+if you want to see EpicChain.Collector in action.
 
-## Add Neo.Collector package to test project
+## Add EpicChain.Collector package to test project
 
-> Note, Neo.Collector depends on changes in the .NET 7 SDK when running on MacOS or Linux. If you're
-> collecting code coverage for contracts written for Neo 3.5 on a non-Windows OS, you'll need to install
+> Note, EpicChain.Collector depends on changes in the .NET 7 SDK when running on MacOS or Linux. If you're
+> collecting code coverage for contracts written for EpicChain 3.5 on a non-Windows OS, you'll need to install
 > the latest [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and the latest 
 > [.NET 6 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
 
-The code coverage collector is distributed in the Neo.Collector NuGet package. Like other NuGet package references,
-the test project must contain a `PackageReference` for Neo.Collector. Since the package is used at build time,
+The code coverage collector is distributed in the EpicChain.Collector NuGet package. Like other NuGet package references,
+the test project must contain a `PackageReference` for EpicChain.Collector. Since the package is used at build time,
 the `IncludeAssets` and `PrivateAssets` values must be set as per the example below.
 
 ``` xml
 <ItemGroup>
-  <PackageReference Include="Neo.Collector" Version="$(NeoTestVersion)" >
+  <PackageReference Include="EpicChain.Collector" Version="$(EpicChainTestVersion)" >
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     <PrivateAssets>all</PrivateAssets>
   </PackageReference>
@@ -37,18 +37,18 @@ the `IncludeAssets` and `PrivateAssets` values must be set as per the example be
 
 ## Create a .runsettings file (Optional) 
 
-In order to generate contract coverage, Neo.Collector needs the
-[contract debug info](https://github.com/neo-project/proposals/blob/master/nep-19.mediawiki)
-for any contract being tested. Test projects that specify `NeoContractReference` items
+In order to generate contract coverage, EpicChain.Collector needs the
+[contract debug info](https://github.com/neo-project/proposals/blob/master/xep-19.mediawiki)
+for any contract being tested. Test projects that specify `EpicChainContractReference` items
 generate a C# interface from the contract manifest for use in test collateral. This 
-C# interface includes a custom `[NeoTestHarness.Contract]` attribute that specifies the
+C# interface includes a custom `[EpicChainTestHarness.Contract]` attribute that specifies the
 contract's name and path to the manifest file that was used to generate the interface.
 
 The collector will automatically locate the debug info for any type that specifies the 
-`[NeoTestHarness.Contract]` attribute, assuming the debug info is in the same folder as
+`[EpicChainTestHarness.Contract]` attribute, assuming the debug info is in the same folder as
 the manifest and has the same base name. 
 
-To collect coverage for contracts that aren't referenced by `NeoContractReference` items,
+To collect coverage for contracts that aren't referenced by `EpicChainContractReference` items,
 you can explicitly include them via a 
 [`.runsettings` file](https://learn.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file).
 
@@ -59,7 +59,7 @@ of this file does not matter. Inside this file, place the following XML.
 <RunSettings>
   <DataCollectionRunSettings>
     <DataCollectors>
-      <DataCollector friendlyName="Neo code coverage">
+      <DataCollector friendlyName="EpicChain code coverage">
         <Configuration>
           <DebugInfo>(path to .nefdbgnfo file)</DebugInfo>
         </Configuration>
@@ -75,12 +75,12 @@ contracts under test that you wish to collect coverage for.
 > Note, if you want to see verbose logging of the coverage collection process, you can add a `<VerboseLog>true</VerboseLog>`
   element to the `Configuration` element in the `.runsettings` file
 
-## Specify Neo.Collector when running tests
+## Specify EpicChain.Collector when running tests
 
-To collect coverage information when running tests, you can enable Neo.Collector on the command line 
+To collect coverage information when running tests, you can enable EpicChain.Collector on the command line 
 or via your test project file.
 
-Regardless of how it is enabled, Neo.Collector generate multiple files during a test run. These files 
+Regardless of how it is enabled, EpicChain.Collector generate multiple files during a test run. These files 
 are generated by default in the `TestResults/<test run guid>` folder of your test project. 
 
 * `neo-coverage.cobertura.xml` - this file contains code coverage in the [Cobertura](https://github.com/cobertura/cobertura)
@@ -95,14 +95,14 @@ are generated by default in the `TestResults/<test run guid>` folder of your tes
 
 ### Collecting Coverage via Command Line 
 
-You trigger code coverage collection when running `dotnet test` by adding the `--collect:"Neo code coverage"`
+You trigger code coverage collection when running `dotnet test` by adding the `--collect:"EpicChain code coverage"`
 argument. If you have `.runsettings` file as described above, you must also use the `--settings` argument to
 specify the path to that runsettings file.
 
 Example:
 
 ``` shell
-dotnet test --collect:"Neo code coverage" --settings test/neo-code-cov.runsettings
+dotnet test --collect:"EpicChain code coverage" --settings test/neo-code-cov.runsettings
 ```
 
 ### Collecting Coverage via Test .csproj File 
@@ -115,7 +115,7 @@ Example:
 
 ```xml
   <PropertyGroup>
-    <VSTestCollect>Neo code coverage</VSTestCollect>
+    <VSTestCollect>EpicChain code coverage</VSTestCollect>
     <RunSettingsFilePath>$(MSBuildThisFileDirectory)/test.runsettings</RunSettingsFilePath>
   </PropertyGroup>
 ```

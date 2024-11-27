@@ -1,6 +1,6 @@
 using System;
 
-namespace NeoTestHarness
+namespace EpicChainTestHarness
 {
     [AttributeUsage(AttributeTargets.Interface, AllowMultiple = false)]
     public class ContractAttribute : Attribute

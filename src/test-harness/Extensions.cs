@@ -5,18 +5,18 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
-using Neo;
-using Neo.BlockchainToolkit;
-using Neo.BlockchainToolkit.Utilities;
-using Neo.Persistence;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using static Neo.Utility;
+using EpicChain;
+using EpicChain.BlockchainToolkit;
+using EpicChain.BlockchainToolkit.Utilities;
+using EpicChain.Persistence;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using static EpicChain.Utility;
 
-namespace NeoTestHarness
+namespace EpicChainTestHarness
 {
-    using NeoStorage = IReadOnlyDictionary<ReadOnlyMemory<byte>, StorageItem>;
+    using EpicChainStorage = IReadOnlyDictionary<ReadOnlyMemory<byte>, StorageItem>;
 
     public static class Extensions
     {
@@ -86,10 +86,10 @@ namespace NeoTestHarness
             builder.EmitSysCall(ApplicationEngine.System_Contract_Call);
         }
 
-        public static NeoStorage GetContractStorages<T>(this ApplicationEngine engine) where T : class
+        public static EpicChainStorage GetContractStorages<T>(this ApplicationEngine engine) where T : class
             => GetContractStorages<T>(engine.Snapshot);
 
-        public static NeoStorage GetContractStorages<T>(this DataCache snapshot)
+        public static EpicChainStorage GetContractStorages<T>(this DataCache snapshot)
             where T : class
         {
             var contract = snapshot.GetContract<T>();
@@ -99,7 +99,7 @@ namespace NeoTestHarness
                 .ToDictionary(s => s.Key.Key, s => s.Value, MemorySequenceComparer.Default);
         }
 
-        public static NeoStorage StorageMap(this NeoStorage storages, byte prefix)
+        public static EpicChainStorage StorageMap(this EpicChainStorage storages, byte prefix)
         {
             byte[]? buffer = null;
             try
@@ -114,7 +114,7 @@ namespace NeoTestHarness
             }
         }
 
-        public static NeoStorage StorageMap(this NeoStorage storages, string prefix)
+        public static EpicChainStorage StorageMap(this EpicChainStorage storages, string prefix)
         {
             byte[]? buffer = null;
             try
@@ -130,12 +130,12 @@ namespace NeoTestHarness
             }
         }
 
-        public static NeoStorage StorageMap(this NeoStorage storages, ReadOnlyMemory<byte> prefix)
+        public static EpicChainStorage StorageMap(this EpicChainStorage storages, ReadOnlyMemory<byte> prefix)
             => storages.Where(kvp => kvp.Key.Span.StartsWith(prefix.Span))
                 .ToDictionary(kvp => kvp.Key.Slice(prefix.Length), kvp => kvp.Value, MemorySequenceComparer.Default);
 
 
-        public static bool TryGetValue(this NeoStorage storages, byte key, [MaybeNullWhen(false)] out StorageItem item)
+        public static bool TryGetValue(this EpicChainStorage storages, byte key, [MaybeNullWhen(false)] out StorageItem item)
         {
             byte[]? buffer = null;
             try
@@ -150,7 +150,7 @@ namespace NeoTestHarness
             }
         }
 
-        public static bool TryGetValue(this NeoStorage storages, string key, [MaybeNullWhen(false)] out StorageItem item)
+        public static bool TryGetValue(this EpicChainStorage storages, string key, [MaybeNullWhen(false)] out StorageItem item)
         {
             byte[]? buffer = null;
             try
@@ -166,11 +166,11 @@ namespace NeoTestHarness
             }
         }
 
-        public static bool TryGetValue(this NeoStorage storage, UInt160 key, [MaybeNullWhen(false)] out StorageItem item)
-            => storage.TryGetValue(Neo.IO.Helper.ToArray(key), out item);
+        public static bool TryGetValue(this EpicChainStorage storage, UInt160 key, [MaybeNullWhen(false)] out StorageItem item)
+            => storage.TryGetValue(EpicChain.IO.Helper.ToArray(key), out item);
 
-        public static bool TryGetValue(this NeoStorage storage, UInt256 key, [MaybeNullWhen(false)] out StorageItem item)
-            => storage.TryGetValue(Neo.IO.Helper.ToArray(key), out item);
+        public static bool TryGetValue(this EpicChainStorage storage, UInt256 key, [MaybeNullWhen(false)] out StorageItem item)
+            => storage.TryGetValue(EpicChain.IO.Helper.ToArray(key), out item);
 
         public static UInt160 GetContractScriptHash<T>(this ApplicationEngine engine)
             where T : class
@@ -214,7 +214,7 @@ namespace NeoTestHarness
         {
             foreach (var contractState in NativeContract.ContractManagement.ListContracts(snapshot))
             {
-                var name = contractState.Id >= 0 ? contractState.Manifest.Name : "Neo.SmartContract.Native." + contractState.Manifest.Name;
+                var name = contractState.Id >= 0 ? contractState.Manifest.Name : "EpicChain.SmartContract.Native." + contractState.Manifest.Name;
                 if (string.Equals(contractName, name))
                 {
                     return contractState;

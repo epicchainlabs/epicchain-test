@@ -8,20 +8,20 @@ using System.Numerics;
 using System.Threading.Tasks;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
-using Neo.BlockchainToolkit;
-using Neo.BlockchainToolkit.Models;
-using Neo.BlockchainToolkit.Persistence;
-using Neo.BlockchainToolkit.SmartContract;
-using Neo.Persistence;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
+using EpicChain.BlockchainToolkit;
+using EpicChain.BlockchainToolkit.Models;
+using EpicChain.BlockchainToolkit.Persistence;
+using EpicChain.BlockchainToolkit.SmartContract;
+using EpicChain.Persistence;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
 using Newtonsoft.Json;
 using Nito.Disposables;
 
-namespace Neo.Test.Runner
+namespace EpicChain.Test.Runner
 {
-    [Command("neo-test-runner", Description = "Neo N3 smart contract runner for unit testing", UsePagerForHelpText = false)]
+    [Command("epicchain-test-runner", Description = "EpicChain  smart contract runner for unit testing", UsePagerForHelpText = false)]
     [VersionOption(ThisAssembly.AssemblyInformationalVersion)]
     class Program
     {
@@ -40,9 +40,9 @@ namespace Neo.Test.Runner
             return app.ExecuteAsync(args);
         }
 
-        [Argument(0, Description = "Path to neo-invoke JSON file")]
+        [Argument(0, Description = "Path to epicchain-invoke JSON file")]
         [Required]
-        internal string NeoInvokeFile { get; set; } = string.Empty;
+        internal string EpicChainInvokeFile { get; set; } = string.Empty;
 
         [Option(Description = "Account that is invoking the contract")]
         internal string Account { get; set; } = string.Empty;
@@ -54,7 +54,7 @@ namespace Neo.Test.Runner
         internal string NefFile { get; set; } = string.Empty;
 
         [Option("-e|--express", Description = "Path to neo-express file")]
-        internal string NeoExpressFile { get; set; } = string.Empty;
+        internal string EpicChainExpressFile { get; set; } = string.Empty;
 
         [Option("-i|--iterator-count")]
         internal int MaxIteratorCount { get; set; } = 100;
@@ -71,8 +71,8 @@ namespace Neo.Test.Runner
                     : (await DebugInfo.LoadContractDebugInfoAsync(NefFile, fileSystem: fileSystem))
                         .Match<DebugInfo?>(di => di, _ => null);
 
-                ExpressChain? chain = string.IsNullOrEmpty(NeoExpressFile)
-                    ? null : fileSystem.LoadChain(NeoExpressFile);
+                ExpressChain? chain = string.IsNullOrEmpty(EpicChainExpressFile)
+                    ? null : fileSystem.LoadChain(EpicChainExpressFile);
 
                 var signer = ParseSigner(chain);
 
@@ -95,7 +95,7 @@ namespace Neo.Test.Runner
                     ? chain.CreateContractParameterParser(tryGetContract, fileSystem)
                     : checkpoint.Settings.CreateContractParameterParser(tryGetContract, fileSystem);
 
-                var script = await parser.LoadInvocationScriptAsync(NeoInvokeFile);
+                var script = await parser.LoadInvocationScriptAsync(EpicChainInvokeFile);
 
                 using var snapshot = new SnapshotCache(store);
                 using var engine = new TestApplicationEngine(snapshot, checkpoint.Settings, signer);

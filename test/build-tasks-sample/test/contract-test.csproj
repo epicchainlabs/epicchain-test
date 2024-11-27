@@ -4,18 +4,18 @@
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <RootNamespace>ContractTests</RootNamespace>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <NeoContractReference Include="..\src\contract.csproj" />
+    <EpicChainContractReference Include="..\src\contract.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
-    <PackageReference Include="Neo.Assertions" Version="$(NeoTestVersion)" />
-    <PackageReference Include="Neo.BuildTasks" Version="$(NeoTestVersion)" PrivateAssets="all" />
-    <PackageReference Include="Neo.Test.Harness" Version="$(NeoTestVersion)" />
+    <PackageReference Include="EpicChain.Assertions" Version="$(EpicChainTestVersion)" />
+    <PackageReference Include="EpicChain.BuildTasks" Version="$(EpicChainTestVersion)" PrivateAssets="all" />
+    <PackageReference Include="EpicChain.Test.Harness" Version="$(EpicChainTestVersion)" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

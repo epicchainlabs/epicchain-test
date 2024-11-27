@@ -2,13 +2,13 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "neo.express": {
+    "EpicChain.express": {
       "version": "3.5.19",
       "commands": [
-        "neoxp"
+        "epicchain"
       ]
     },
-    "neo.compiler.csharp": {
+    "EpicChain.compiler.csharp": {
       "version": "3.5.0",
       "commands": [
         "nccs"

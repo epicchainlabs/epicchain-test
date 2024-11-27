@@ -1,6 +1,6 @@
 using System;
 
-namespace Neo.Collector
+namespace EpicChain.Collector
 {
     public interface ILogger
     {

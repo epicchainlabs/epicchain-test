@@ -1,9 +1,9 @@
-using Neo.SmartContract;
-using Neo.VM.Types;
+using EpicChain.SmartContract;
+using EpicChain.VM.Types;
 
-namespace Neo.Assertions
+namespace EpicChain.Assertions
 {
-    public static class NeoAssertionsExtensions
+    public static class EpicChainAssertionsExtensions
     {
         public static StackItemAssertions Should(this StackItem item) => new StackItemAssertions(item);
 

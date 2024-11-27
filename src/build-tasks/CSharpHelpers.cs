@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
     static class CSharpHelpers
     {

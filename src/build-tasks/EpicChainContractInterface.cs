@@ -3,9 +3,9 @@ using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
-    public class NeoContractInterface : Task
+    public class EpicChainContractInterface : Task
     {
         public override bool Execute()
         {
@@ -17,7 +17,7 @@ namespace Neo.BuildTasks
             {
                 try
                 {
-                    var manifest = NeoManifest.Load(ManifestFile);
+                    var manifest = EpicChainManifest.Load(ManifestFile);
                     var source = ContractGenerator.GenerateContractInterface(manifest, ManifestFile, ContractNameOverride, RootNamespace);
                     if (!string.IsNullOrEmpty(source))
                     {

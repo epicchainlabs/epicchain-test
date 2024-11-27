@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 
-namespace Neo.Collector
+namespace EpicChain.Collector
 {
     public partial class CodeCoverageDataCollector
     {

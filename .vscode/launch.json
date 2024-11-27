@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "neo-test-runner",
+            "name": "epicchain-test-runner",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/runner/bin/Debug/net6.0/neo-test-runner.dll",
+            "program": "${workspaceFolder}/src/runner/bin/Debug/net8.0/epicchain-test-runner.dll",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "stopAtEntry": false

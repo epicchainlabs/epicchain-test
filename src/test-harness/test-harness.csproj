@@ -2,9 +2,9 @@
   <PropertyGroup>
     <AssemblyName>neo-test-harness</AssemblyName>
     <Nullable>enable</Nullable>
-    <PackageId>Neo.Test.Harness</PackageId>
-    <RootNamespace>NeoTestHarness</RootNamespace>
-    <TargetFramework>net6.0</TargetFramework>
+    <PackageId>EpicChain.Test.Harness</PackageId>
+    <RootNamespace>EpicChainTestHarness</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="Neo.BlockchainToolkit.Library" Version="$(BlockchainToolkitLibraryVersion)" />
+        <PackageReference Include="EpicChain.BlockchainToolkit.Library" Version="$(BlockchainToolkitLibraryVersion)" />
       </ItemGroup>
     </Otherwise>
   </Choose>

@@ -7,7 +7,7 @@ using System.Text;
 
 // This code was originally published as part of EFCore (https://github.com/dotnet/efcore/blob/main/src/EFCore/Infrastructure/IndentedStringBuilder.cs)
 
-namespace Neo.BuildTasks
+namespace EpicChain.BuildTasks
 {
     /// <summary>
     ///     <para>

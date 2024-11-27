@@ -3,9 +3,9 @@
   <PropertyGroup>
     <AssemblyName>neo-assertions</AssemblyName>
     <Nullable>enable</Nullable>
-    <PackageId>Neo.Assertions</PackageId>
-    <RootNamespace>Neo.Assertions</RootNamespace>
-    <TargetFramework>net6.0</TargetFramework>
+    <PackageId>EpicChain.Assertions</PackageId>
+    <RootNamespace>EpicChain.Assertions</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,12 +16,12 @@
   <Choose>
     <When Condition=" '$(BlockchainToolkitLibraryVersion)' == 'local'">
       <ItemGroup>
-        <ProjectReference Include="$(NeoMonorepoPath)\core\src\neo\neo.csproj" />
+        <ProjectReference Include="$(NeoMonorepoPath)\core\src\neo\EpicChain.csproj" />
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="Neo" Version="$(NeoVersion)" />
+        <PackageReference Include="EpicChain" Version="$(EpicChainVersion)" />
       </ItemGroup>
     </Otherwise>
   </Choose>

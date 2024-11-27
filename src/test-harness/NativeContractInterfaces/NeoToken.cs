@@ -1,18 +1,18 @@
-namespace NeoTestHarness.NativeContractInterfaces
+namespace EpicChainTestHarness.NativeContractInterfaces
 {
-    public interface NeoToken : Nep17Token
+    public interface EpicChainToken : Xep17Token
     {
-        Neo.VM.Types.Array getAccountState(Neo.UInt160 account);
-        Neo.VM.Types.Array getCandidates();
-        Neo.VM.Types.Array getCommittee();
+        EpicChain.VM.Types.Array getAccountState(EpicChain.UInt160 account);
+        EpicChain.VM.Types.Array getCandidates();
+        EpicChain.VM.Types.Array getCommittee();
         System.Numerics.BigInteger getGasPerBlock();
-        Neo.VM.Types.Array getNextBlockValidators();
+        EpicChain.VM.Types.Array getNextBlockValidators();
         System.Numerics.BigInteger getRegisterPrice();
-        bool registerCandidate(Neo.Cryptography.ECC.ECPoint pubkey);
+        bool registerCandidate(EpicChain.Cryptography.ECC.ECPoint pubkey);
         void setGasPerBlock(System.Numerics.BigInteger gasPerBlock);
         void setRegisterPrice(System.Numerics.BigInteger registerPrice);
-        System.Numerics.BigInteger unclaimedGas(Neo.UInt160 account, System.Numerics.BigInteger end);
-        bool unregisterCandidate(Neo.Cryptography.ECC.ECPoint pubkey);
-        bool vote(Neo.UInt160 account, Neo.Cryptography.ECC.ECPoint voteTo);
+        System.Numerics.BigInteger unclaimedGas(EpicChain.UInt160 account, System.Numerics.BigInteger end);
+        bool unregisterCandidate(EpicChain.Cryptography.ECC.ECPoint pubkey);
+        bool vote(EpicChain.UInt160 account, EpicChain.Cryptography.ECC.ECPoint voteTo);
     }
 }
